@@ -27,6 +27,7 @@ public class HashTable {
     public boolean IsEmpty(){
         return size==0;
     }
+    
     public void put(Integer key, String value){
         if(key == null || value == null){
             throw new IllegalArgumentException("key or value is nul!!");
@@ -51,6 +52,7 @@ public class HashTable {
     public int getBucketIndex(Integer key){
         return key%numofbuckets; //buckets.length
     }
+    
     public String get(Integer key){
         if(key == null){
             throw new IllegalArgumentException("key is nul!!");
@@ -65,17 +67,45 @@ public class HashTable {
         }
         return null;
     }
-    public String remove(Integer key){
-        return null;
+    public String remove(Integer key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is nul!!");
+        }
+        int bucketIndex = getBucketIndex(key);
+        HashNode head = buckets[bucketIndex];
+        HashNode previous = null;
+        while (head != null) {
+            if (head.key == key) {
+                break;
+            }
+            previous = head;
+            head = head.next;
+        }
+        if (head == null) {
+            return null;
+        }
+        size--;
+        if(previous!=null){
+            previous.next=head.next;
+        }else{
+            buckets[bucketIndex]=head.next;
+        }
+        return head.value;
     }
+    
+    
     public static void main(String args[]){
     HashTable  table=new HashTable(10);
-    table.put(12,"vikash");
-    table.put(32,"ram");
-    table.put(12,"Patel");
+    table.put(105,"vikash");
+    table.put(21,"ram");
+    table.put(31,"Patel");
     System.out.println(table.size());
-    System.out.println(table.get(32));
-    System.out.println(table.get(12));
+//    System.out.println(table.get(32));
+//    System.out.println(table.get(12));
+        System.out.println(table.remove(21));
+        System.out.println(table.remove(31));
+        System.out.println(table.size());
+
     }
 }
 
