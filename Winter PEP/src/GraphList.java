@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+// Adjacency matrix representation
 
 public class GraphList {
     private LinkedList<Integer>[] adj;

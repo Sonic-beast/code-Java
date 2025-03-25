@@ -1,3 +1,6 @@
+
+// Adjacency matrix representation
+
 public class GraphMatrix {
     private int vertices;
     private int edges;
